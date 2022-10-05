@@ -11,33 +11,33 @@ class Scheduler
      *
      * @var array
      */
-    private $jobs = [];
+    protected $jobs = [];
 
     /**
      * Successfully executed jobs.
      *
      * @var array
      */
-    private $executedJobs = [];
+    protected $executedJobs = [];
 
     /**
      * Failed jobs.
      *
      * @var FailedJob[]
      */
-    private $failedJobs = [];
+    protected $failedJobs = [];
 
     /**
      * The verbose output of the scheduled jobs.
      *
      * @var array
      */
-    private $outputSchedule = [];
+    protected $outputSchedule = [];
 
     /**
      * @var array
      */
-    private $config;
+    protected $config;
 
     /**
      * Create new instance.
@@ -55,7 +55,7 @@ class Scheduler
      * @param  Job  $job
      * @return void
      */
-    private function queueJob(Job $job)
+    protected function queueJob(Job $job)
     {
         $this->jobs[] = $job;
     }
@@ -65,7 +65,7 @@ class Scheduler
      *
      * @return array
      */
-    private function prioritiseJobs()
+    protected function prioritiseJobs()
     {
         $background = [];
         $foreground = [];
@@ -206,7 +206,7 @@ class Scheduler
      * @param  string  $string
      * @return void
      */
-    private function addSchedulerVerboseOutput($string)
+    protected function addSchedulerVerboseOutput($string)
     {
         $now = '[' . (new DateTime('now'))->format('c') . '] ';
         $this->outputSchedule[] = $now . $string;
@@ -221,7 +221,7 @@ class Scheduler
      * @param  Job  $job
      * @return Job
      */
-    private function pushExecutedJob(Job $job)
+    protected function pushExecutedJob(Job $job)
     {
         $this->executedJobs[] = $job;
 
@@ -254,7 +254,7 @@ class Scheduler
      * @param  Exception  $e
      * @return Job
      */
-    private function pushFailedJob(Job $job, Exception $e)
+    protected function pushFailedJob(Job $job, Exception $e)
     {
         $this->failedJobs[] = new FailedJob($job, $e);
 

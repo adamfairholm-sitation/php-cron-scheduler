@@ -14,49 +14,49 @@ class Job
      *
      * @var string
      */
-    private $id;
+    protected $id;
 
     /**
      * Command to execute.
      *
      * @var mixed
      */
-    private $command;
+    protected $command;
 
     /**
      * Arguments to be passed to the command.
      *
      * @var array
      */
-    private $args = [];
+    protected $args = [];
 
     /**
      * Defines if the job should run in background.
      *
      * @var bool
      */
-    private $runInBackground = true;
+    protected $runInBackground = true;
 
     /**
      * Creation time.
      *
      * @var DateTime
      */
-    private $creationTime;
+    protected $creationTime;
 
     /**
      * Job schedule time.
      *
      * @var Cron\CronExpression
      */
-    private $executionTime;
+    protected $executionTime;
 
     /**
      * Job schedule year.
      *
      * @var string
      */
-    private $executionYear = null;
+    protected $executionYear = null;
 
     /**
      * Temporary directory path for
@@ -64,14 +64,14 @@ class Job
      *
      * @var string
      */
-    private $tempDir;
+    protected $tempDir;
 
     /**
      * Path to the lock file.
      *
      * @var string
      */
-    private $lockFile;
+    protected $lockFile;
 
     /**
      * This could prevent the job to run.
@@ -79,56 +79,56 @@ class Job
      *
      * @var bool
      */
-    private $truthTest = true;
+    protected $truthTest = true;
 
     /**
      * The output of the executed job.
      *
      * @var mixed
      */
-    private $output;
+    protected $output;
 
     /**
      * The return code of the executed job.
      *
      * @var int
      */
-    private $returnCode = 0;
+    protected $returnCode = 0;
 
     /**
      * Files to write the output of the job.
      *
      * @var array
      */
-    private $outputTo = [];
+    protected $outputTo = [];
 
     /**
      * Email addresses where the output should be sent to.
      *
      * @var array
      */
-    private $emailTo = [];
+    protected $emailTo = [];
 
     /**
      * Configuration for email sending.
      *
      * @var array
      */
-    private $emailConfig = [];
+    protected $emailConfig = [];
 
     /**
      * A function to execute before the job is executed.
      *
      * @var callable
      */
-    private $before;
+    protected $before;
 
     /**
      * A function to execute after the job is executed.
      *
      * @var callable
      */
-    private $after;
+    protected $after;
 
     /**
      * A function to ignore an overlapping job.
@@ -136,12 +136,12 @@ class Job
      *
      * @var callable
      */
-    private $whenOverlapping;
+    protected $whenOverlapping;
 
     /**
      * @var string
      */
-    private $outputMode;
+    protected $outputMode;
 
     /**
      * Create a new Job instance.
@@ -406,7 +406,7 @@ class Job
      * @param  mixed  $content
      * @return void
      */
-    private function createLockFile($content = null)
+    protected function createLockFile($content = null)
     {
         if ($this->lockFile) {
             if ($content === null || ! is_string($content)) {
@@ -422,7 +422,7 @@ class Job
      *
      * @return void
      */
-    private function removeLockFile()
+    protected function removeLockFile()
     {
         if ($this->lockFile && file_exists($this->lockFile)) {
             unlink($this->lockFile);
@@ -436,7 +436,7 @@ class Job
      * @throws Exception
      * @return string
      */
-    private function exec(callable $fn)
+    protected function exec(callable $fn)
     {
         ob_start();
 
@@ -516,7 +516,7 @@ class Job
      *
      * @return void
      */
-    private function finalise()
+    protected function finalise()
     {
         // Send output to email
         $this->emailOutput();
@@ -532,7 +532,7 @@ class Job
      *
      * @return bool
      */
-    private function emailOutput()
+    protected function emailOutput()
     {
         if (! count($this->outputTo) || ! count($this->emailTo)) {
             return false;
